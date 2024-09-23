@@ -1,9 +1,10 @@
+
 .Footer {
-    margin-top: auto;
-    background-color: #282c34;
-    color: white;
-    padding: 10px;
-    text-align: center;
-   
-  }
-  
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  margin-top: auto; /* Esto permite que el footer se empuje hacia abajo cuando el contenido es corto */
+
+  height: 60px;
+}

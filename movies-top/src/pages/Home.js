@@ -1,91 +1,88 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { genreMapping } from '../genres'; // Importar el archivo de géneros
-import './Home.css'; // Importar los estilos para la página Home
+import { useLocation } from 'react-router-dom';
+import './Home.css';
 
 function Home() {
   const [movies, setMovies] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const type = queryParams.get('type'); // Detectar si es series o películas
+  const searchQuery = queryParams.get('q'); // Detectar si hay un término de búsqueda
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchData = async () => {
       setIsLoading(true);
+      setError(null); // Reset error on new fetch
+
       try {
-        const response = await axios.get('https://api.themoviedb.org/3/movie/popular', {
-          params: {
-            api_key: process.env.REACT_APP_TMDB_API_KEY,
-            language: 'es-ES',
-          }
-        });
+        let endpoint = '';
+        const params = {
+          api_key: process.env.REACT_APP_TMDB_API_KEY,
+          language: 'es-ES',
+        };
+
+        if (searchQuery) {
+          // Si hay una búsqueda, usar el endpoint de búsqueda de la API
+          endpoint = 'https://api.themoviedb.org/3/search/multi';
+          params.query = searchQuery;
+        } else if (type === 'series') {
+          // Mostrar las mejores series
+          endpoint = 'https://api.themoviedb.org/3/tv/top_rated'; // Mejores series
+        } else if (type === 'movie') {
+          // Mostrar las mejores películas
+          endpoint = 'https://api.themoviedb.org/3/movie/top_rated'; // Mejores películas
+        } else {
+          // Mostrar las películas y series más recientes (en estreno)
+          const nowPlayingMovies = 'https://api.themoviedb.org/3/movie/now_playing'; // Películas más recientes
+          const onTheAirSeries = 'https://api.themoviedb.org/3/tv/on_the_air'; // Series más recientes
+          
+          // Hacer dos requests paralelos: uno para películas y otro para series
+          const [moviesResponse, seriesResponse] = await Promise.all([
+            axios.get(nowPlayingMovies, { params }),
+            axios.get(onTheAirSeries, { params })
+          ]);
+
+          // Combinar películas y series
+          setMovies([...moviesResponse.data.results, ...seriesResponse.data.results]);
+          setIsLoading(false);
+          return; // Salir ya que hemos seteado los datos
+        }
+
+        const response = await axios.get(endpoint, { params });
         setMovies(response.data.results);
       } catch (err) {
+        console.error('API Error:', err.message); // Agregar log de error
         setError(err.message);
       }
+
       setIsLoading(false);
     };
 
-    fetchMovies();
-  }, []);
-
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const response = await axios.get('https://api.themoviedb.org/3/search/movie', {
-        params: {
-          api_key: process.env.REACT_APP_TMDB_API_KEY,
-          query: searchQuery,
-          language: 'es-ES',
-        }
-      });
-      setMovies(response.data.results);
-    } catch (err) {
-      setError(err.message);
-    }
-    setIsLoading(false);
-  };
-
-  const handleMovieClick = (movie) => {
-    setSelectedMovie(selectedMovie?.id === movie.id ? null : movie);
-  };
+    fetchData();
+  }, [type, searchQuery]);
 
   const imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 
   return (
     <div className="Home">
-      <h1>Bienvenido a Movie Finder</h1>
-      <form onSubmit={handleSearch} className="search-form">
-        <input
-          type="text"
-          placeholder="Buscar películas..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <button type="submit">Buscar</button>
-      </form>
       {isLoading && <p>Cargando...</p>}
       <div className="movie-list">
         {error && <p className="error">{error}</p>}
-        {movies.length === 0 && !isLoading && <p>No se encontraron películas.</p>}
+        {movies.length === 0 && !isLoading && <p>No se encontraron resultados.</p>}
         {movies.map((movie) => (
-          <div key={movie.id} className="movie-item" onClick={() => handleMovieClick(movie)}>
+          <div key={movie.id} className="movie-item">
             {movie.poster_path && (
               <img
                 src={`${imageBaseUrl}${movie.poster_path}`}
-                alt={movie.title}
+                alt={movie.title || movie.name}
                 className="movie-poster"
               />
             )}
-            <h2>{movie.title}</h2>
-            {selectedMovie?.id === movie.id && (
-              <div className="movie-details">
-                <p>{movie.overview}</p>
-                <p><strong>Géneros:</strong> {movie.genre_ids.map(id => genreMapping[id] || 'Desconocido').join(', ')}</p>
-              </div>
-            )}
+            <div className="movie-title">{movie.title || movie.name}</div>
           </div>
         ))}
       </div>

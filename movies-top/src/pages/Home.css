@@ -1,41 +1,77 @@
+/* Estilos para el contenedor principal de la página Home */
+
+
 .Home {
-    text-align: center;
-  }
+  background-color: #101010; /* Color de fondo de la página principal */
+  text-align: center;
+  padding: 50px; /* Espaciado interno */
+  box-sizing: border-box; /* Incluye padding y border en el ancho total */
+  min-height: calc(100vh - 80px - 60px)
   
-  .search-form {
-    margin: 20px 0;
-  }
-  
-  .search-form input {
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  .search-form button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
+}
+
+/* Estilos para el mensaje de carga y errores */
+.loading, .error {
+  color: white;
+}
+
+/* Estilos para la lista de películas */
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Espacio entre los cuadros de las películas */
+  padding: 0;
+  margin: 0;
+}
+
+/* Estilos para cada película individual */
+.movie-item {
+  background-color: #404040; /* Color de fondo del cuadro de la película */
+  border-radius: 8px; /* Bordes redondeados */
+  overflow: hidden; /* Asegura que el contenido no sobresalga del borde */
+  max-width: 250px; /* Ancho máximo del contenedor de la película */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el cuadro de la película */
+  transition: transform 0.3s ease; /* Transición suave para la transformación */
+}
+
+.movie-item:hover {
+  transform: scale(1.05); /* Agranda el cuadro de la película al pasar el mouse */
+}
+
+/* Estilos para la imagen de la película */
+.movie-poster {
+  width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+
+/* Estilos para el título de la película */
+.movie-title {
+  color: white; /* Define el color blanco para el texto del título */
+  font-size: 16px; /* Define el tamaño de la fuente del título */
+  font-weight: bold; /* Aplica un estilo de negrita al texto del título */
+  padding: 10px; /* Espaciado interno */
+  text-align: center; /* Centra el texto dentro del cuadro */
+}
+
+/* Estilos para el contenedor blanco */
+
+
+/* Media query para pantallas con un ancho máximo de 1200px */
+@media (max-width: 1200px) {
   .movie-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: row; /* Alinea las películas en filas en pantallas más pequeñas */
   }
-  
+}
+
+/* Media query para pantallas con un ancho máximo de 768px (dispositivos móviles) */
+@media (max-width: 768px) {
+  .movie-list {
+    flex-direction: column; /* En pantallas pequeñas, alinea las películas en una columna */
+    align-items: center; /* Centra las películas horizontalmente */
+  }
+
   .movie-item {
-    margin: 10px;
-    cursor: pointer;
+    max-width: 90%; /* Los cuadros de películas ocuparán el 90% del ancho de la pantalla en dispositivos móviles */
   }
-  
-  .movie-poster {
-    width: 150px;
-    height: 225px;
-    object-fit: cover;
-  }
-  
-  .movie-details {
-    text-align: left;
-    margin-top: 10px;
-  }
-  
+}
