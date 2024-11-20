@@ -1,117 +1,159 @@
-/* Estilos para el contenedor del header */
+/* Header.css */
+
+/* Estilos generales */
 .Header {
-  background-color: #D7A700; /* Color amarillo del header */
-  display: flex; /* Usa Flexbox para alinear elementos horizontalmente */
-  align-items: center; /* Centra verticalmente los elementos del header */
-  padding: 15px; /* Espaciado interno del header */
-  height: 80px; /* Altura fija del header */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #D7A700;
+  color: white;
+  flex-wrap: wrap;
 }
 
-/* Estilos para la sección del logo y el título */
 .logo-title-section {
-  display: flex; /* Usa Flexbox para alinear el logo y el título */
-  align-items: center; /* Centra verticalmente el logo y el título */
-  margin-right: 20px; /* Espacio a la derecha del logo y título para separar de los botones de navegación */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
 }
 
 .logo {
-  margin-left: 20px; /* Espacio a la izquierda del logo */
-  width: 100px; /* Ancho del logo */
-  height: 100px; /* Altura del logo */
-  margin-right: 20px; /* Espacio a la derecha del logo */
-  cursor: pointer;
+  width: 80px;
+  height: 80px;
 }
 
 .title {
-  font-size: 30px; /* Tamaño de fuente del título */
-  color: white; /* Color del texto del título */
-  font-family: 'Inria Sans', sans-serif; /* Fuente del título */
-  font-weight: 700; /* Peso de la fuente (negrita) */
-  cursor: pointer;
-}
-
-/* Estilos para la sección de los botones de navegación */
-.nav-buttons {
-  margin-left: 50px; /* Espacio a la izquierda del logo */
-  display: flex; /* Usa Flexbox para alinear los botones de navegación */
-  align-items: center; /* Centra verticalmente los botones */
-  margin-right: 50px; /* Espacio a la derecha de los botones de navegación */
-}
-
-.nav-link {
-  margin-right: 25px; /* Espacio a la derecha de cada enlace */
-  font-size: 18px; /* Tamaño de fuente de los enlaces */
-  color: white; /* Color del texto de los enlaces */
-  text-decoration: none; /* Sin subrayado en los enlaces */
-}
-
-/* Estilo para el hover en los enlaces de navegación */
-.nav-link:hover {
-  text-decoration: underline; /* Subrayado al pasar el ratón sobre los enlaces */
+  font-size: 1.7rem;
+  font-weight: 700;
+  font-family: 'Inria Sans', sans-serif;
   
 }
 
-/* Estilos para el botón de perfil */
-.user-btn {
-  margin-left: 600px;
-  background-color: white; /* Fondo blanco del botón */
-  color: black; /* Color del texto del botón */
-  padding: 8px 16px; /* Espaciado interno del botón */
-  font-size: 16px; /* Tamaño de fuente del botón */
-  border: none; /* Sin borde alrededor del botón */
-  border-radius: 5px; /* Bordes redondeados del botón */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  margin-right: 30px; /* Espacio a la derecha del botón de perfil */
+.nav-buttons {
+ 
+  display: flex;
+  gap: 15px;
 }
 
-/* Estilo para el hover en el botón de perfil */
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 5px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #730000;
+  border-radius: 5px;
+}
+
+.user-btn {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 .user-btn:hover {
-  background-color: #f0f0f0; /* Fondo gris claro al pasar el ratón sobre el botón */
+  background-color: #c0392b;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
 }
 
 .input-container {
-  display: flex; /* Usa Flexbox para alinear horizontalmente los elementos */
-  align-items: center; /* Centra verticalmente los elementos */
-  width: 100%; /* Ocupa todo el ancho del contenedor padre (opcional, ajusta si es necesario) */
-  position: relative; /* Establece un contexto para el posicionamiento relativo del botón */
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .search-input {
-  background-color: #f4f4f4; /* Color de fondo gris claro */
-  width: 350px; /* Ancho del campo de búsqueda */
-  font-size: 18px; /* Tamaño de fuente del texto */
-  padding: 10px 20px; /* Espaciado interno del campo de búsqueda */
-  border-radius: 25px; /* Bordes redondeados del campo de búsqueda */
-  border: none; /* Sin borde alrededor del campo de búsqueda */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil alrededor del campo de búsqueda */
-  transition: all 0.3s ease; /* Transición suave para hover y focus */
+  background-color: #f4f4f4;
+  width: 250px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;;
 }
 
-/* Efecto cuando el campo de búsqueda está en foco */
 .search-input:focus {
   outline: none; /* Sin borde al hacer foco */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Aumenta la sombra al hacer foco */
   background-color: #ffffff; /* Fondo blanco al hacer foco */
   border: 1px solid #D7A700; /* Borde amarillo al hacer foco */
 }
+
 .search-button {
-  background-color: #D7A700; /* Color amarillo de fondo para el botón */
-  color: white; /* Color del icono del botón */
-  border: none; /* Sin borde alrededor del botón */
-  width: 50px; /* Ancho del botón */
-  height: 50px; /* Altura del botón */
-  border-radius: 25px; /* Bordes redondeados del botón */
-  display: flex; /* Usa Flexbox para centrar el icono dentro del botón */
-  align-items: center; /* Centra verticalmente el icono dentro del botón */
-  justify-content: center; /* Centra horizontalmente el icono dentro del botón */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  font-size: 20px; /* Tamaño del icono */
-  margin-left: 10px; /* Espacio a la izquierda del botón (ajustar según sea necesario) */
-  transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+  background-color: #D7A700;
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
 }
 
-/* Estilo para el hover en el botón de búsqueda */
 .search-button:hover {
-  background-color: #f0f0f0; /* Fondo gris claro al pasar el ratón sobre el botón */
-  color: #D7A700; /* Cambia el color del icono al pasar el ratón */
+  background-color: #f0f0f0;
+  color: #D7A700
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .Header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .logo-title-section {
+    justify-content: center;
+  }
+
+  .nav-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .search-bar {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+  }
+
+  .user-btn {
+    font-size: 0.9rem;
+  }
+
+  .search-button {
+    font-size: 0.9rem;
+    padding: 5px;
+  }
 }
